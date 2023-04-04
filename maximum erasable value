@@ -1,0 +1,19 @@
+int maximumUniqueSubarray(vector<int>& nums) {
+        int l=0;
+        int r=0;
+        int ans=0;
+        int sum=0;
+        unordered_map<int,int>ump;
+        for(r=0;r<nums.size();r++)
+        {
+            ump[nums[r]]++;
+            sum+=nums[r];
+            for(;ump[nums[r]]>1;l++)
+            {
+                ump[nums[l]]--;
+                sum=sum-nums[l];
+            }
+            ans=max(ans,sum);
+        }
+        return ans;
+    }
