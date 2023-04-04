@@ -1,0 +1,16 @@
+int lengthOfLongestSubstring(string s) {
+        int tail=0;
+        unordered_map<char,int>ump;
+        int ans=0;
+        for(int head=0;head<s.length();head++)
+        {
+            ump[s[head]]++;
+            while(ump[s[head]]>1)
+            {
+                ump[s[tail]]--;
+                tail++;
+            }
+            ans=max(ans,head-tail+1);
+        }
+        return ans;
+    }
