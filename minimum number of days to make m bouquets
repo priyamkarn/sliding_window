@@ -1,0 +1,53 @@
+class Solution {
+public:
+    int freq(vector<int>&bloomDay,int m,int k,int mid){
+    int curr =0;
+    int n = bloomDay.size();
+    int temp =0;
+
+    for(int i=0;i<n;i++){
+        if(temp==k){
+            curr++;
+            temp=0;
+
+        }
+        if(bloomDay[i]<=mid){
+            temp++;
+        }
+        else{
+            temp=0;
+        }
+    }
+    
+    if(temp==k){
+        curr++;
+        temp=0;
+    }
+    return curr>=m;
+}
+    int minDays(vector<int>& bloomDay, int m, int k) {
+        //first flower bloom in day 1,2nd flower bloom in day 10.
+        int high = bloomDay[0];
+        int n= bloomDay.size();
+
+        for(auto it:bloomDay){
+            high = max(high,it);
+        }
+        int low =1;
+
+        int ans =-1;
+
+        while(low<=high){
+            int mid = low+(high-low)/2;
+
+            if(freq(bloomDay,m,k,mid)){
+                ans = mid;
+                high = mid-1;
+            }
+            else{
+                low = mid+1;
+            }
+        }
+        return ans;
+    }
+};
