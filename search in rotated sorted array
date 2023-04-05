@@ -1,0 +1,38 @@
+class Solution {
+public:
+    
+    int search(vector<int>& nums, int target) {
+        // striver algo
+        int n = nums.size();
+        int start = 0, end = n-1;
+        while(start <= end){
+            int mid = end + (start - end)/2;
+            if(nums[mid]==target) return mid;
+            // now either left half is sorted or right
+            if(nums[start] <= nums[mid]){
+                // left half is sorted
+                // now lets check if the target can exist in the left half
+                if(nums[start] <= target && target < nums[mid]){
+                  // target will exist in the left half
+                    end = mid - 1;
+                }
+                else{
+                    // target lies in thr right half
+                    start = mid + 1;
+                }
+            }
+            else{
+                // right half is sorted
+                if(nums[mid] < target && target <= nums[end]){
+                //  element will exist in this sorted right half
+                    start = mid + 1;
+                }
+                else{
+                    // value will exist in left half
+                    end = mid - 1;
+                }
+            }
+        }
+        return -1;
+    }
+};
