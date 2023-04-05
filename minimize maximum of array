@@ -1,0 +1,37 @@
+class Solution {
+public:
+bool solve(vector<int>& nums,int target)
+{
+    long long sum=0;
+    for(int i=0;i<nums.size();i++)
+    {
+        sum+=nums[i];
+        /*we are checking that if x is max no can be allowed,then we can to make to make every element x in array */
+        /*if sum greater than x*(no of current element) then x and below x is not allowed*/
+        if((long long)target*(i+1)<sum)
+        {
+            return false;
+        }
+    }
+    return true;
+}
+    int minimizeArrayValue(vector<int>& nums) {
+        int l=0;
+        int r=*max_element(nums.begin(),nums.end());
+        int ans=0;
+        while(l<=r)
+        {
+            int mid=(l+r)/2;
+            if(solve(nums,mid)==true)
+            {
+                ans=mid;
+                r=mid-1;
+            }
+            else
+            {
+                l=mid+1;
+            }
+        }
+        return ans;
+    }
+};
